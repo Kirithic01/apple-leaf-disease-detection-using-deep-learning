@@ -66,3 +66,7 @@ env/
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# Local helper scripts, not part of the project
+push_to_github.bat
+cleanup_repo.bat
