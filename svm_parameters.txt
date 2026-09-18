@@ -1,0 +1,8 @@
+SVM Model Hyperparameters
+==============================
+
+Kernel = rbf
+C = 1.0
+Gamma = scale
+Probability = False
+Class Weight = None

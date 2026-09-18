@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------
+# Trained model weights and serialised estimators
+# ---------------------------------------------------------------
+# These are build outputs, not source. Together they come to ~2.6 GB,
+# which is far beyond GitHub's 100 MB per-file limit and beyond the
+# free Git LFS quota. Rebuild them with train_all_models.py and
+# train_classical_models.py.
+*.h5
+*.keras
+*.pkl
+*.joblib
+*.pb
+saved_model/
+checkpoints/
+
+# ---------------------------------------------------------------
+# Dataset
+# ---------------------------------------------------------------
+# ~15k images. See the README for the download source.
+dataset/
+data/
+*.zip
+*.tar.gz
+
+# ---------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+.env/
+
+# ---------------------------------------------------------------
+# Notebooks
+# ---------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------
+# LaTeX build artefacts
+# ---------------------------------------------------------------
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+
+# ---------------------------------------------------------------
+# Editors and OS
+# ---------------------------------------------------------------
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+desktop.ini

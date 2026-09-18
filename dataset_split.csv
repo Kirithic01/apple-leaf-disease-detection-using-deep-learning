@@ -1,0 +1,5 @@
+Dataset,Images,Percentage
+Training,10680,70.6%
+Validation,4444,29.4%
+Testing,0,0.0%
+Total,15124,100.0%

@@ -1,0 +1,283 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Apple Disease Detection}
+\lhead{Minor Project}
+\cfoot{\thepage}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstset{style=pythonstyle}
+
+\title{\textbf{Apple Leaf Disease Detection System}}
+\subtitle{A Deep Learning Approach for Plant Disease Classification}
+\author{Computer Vision Project}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This project presents a deep learning-based system for detecting apple leaf diseases using convolutional neural networks. The system employs transfer learning with MobileNetV2 architecture to classify four categories: Apple Scab, Black Rot, Cedar Apple Rust, and Healthy leaves. The implementation includes both web-based and desktop user interfaces for practical deployment.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+Apple diseases pose significant threats to agricultural productivity worldwide. Early detection and accurate classification of leaf diseases are crucial for effective disease management and crop protection. This project leverages deep learning techniques to automate the disease detection process, providing farmers and agricultural experts with a reliable diagnostic tool.
+
+\subsection{Problem Statement}
+Manual disease detection is time-consuming, requires expertise, and is prone to human error. An automated system can provide:
+\begin{itemize}
+    \item Rapid and consistent disease identification
+    \item High accuracy classification
+    \item Accessibility through user-friendly interfaces
+\end{itemize}
+
+\section{Dataset and Preprocessing}
+
+\subsection{Dataset Structure}
+The dataset consists of apple leaf images organized into four classes:
+\begin{itemize}
+    \item \textbf{Apple\_Scab}: Leaves showing scab disease symptoms
+    \item \textbf{Black\_Rot}: Leaves affected by black rot fungus
+    \item \textbf{Cedar\_Apple\_Rust}: Leaves with rust disease
+    \item \textbf{Healthy}: Normal, disease-free leaves
+\end{itemize}
+
+\subsection{Image Preprocessing}
+The preprocessing pipeline includes:
+\begin{lstlisting}[caption=Image Preprocessing Pipeline]
+datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    zoom_range=0.2,
+    horizontal_flip=True
+)
+\end{lstlisting}
+
+Key preprocessing steps:
+\begin{itemize}
+    \item Rescaling pixel values to $[0,1]$ range
+    \item Random rotation up to $20^\circ$
+    \item Random zoom up to $20\%$
+    \item Horizontal flipping for data augmentation
+    \item Resizing to $224 \times 224$ pixels
+\end{itemize}
+
+\section{Model Architecture}
+
+\subsection{Transfer Learning with MobileNetV2}
+The system utilizes MobileNetV2 as the base model, pre-trained on ImageNet dataset. The architecture is modified for our specific classification task:
+
+\begin{lstlisting}[caption=Model Architecture]
+base_model = MobileNetV2(
+    weights='imagenet',
+    include_top=False,
+    input_shape=(224, 224, 3)
+)
+
+model = models.Sequential([
+    base_model,
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(4, activation='softmax')
+])
+\end{lstlisting}
+
+\subsection{Model Parameters}
+\begin{itemize}
+    \item \textbf{Input Shape}: $224 \times 224 \times 3$
+    \item \textbf{Base Model}: MobileNetV2 (frozen weights)
+    \item \textbf{Classification Layers}: 
+    \begin{itemize}
+        \item Global Average Pooling
+        \item Dense layer with 128 neurons (ReLU activation)
+        \item Output layer with 4 neurons (Softmax activation)
+    \end{itemize}
+    \item \textbf{Optimizer}: Adam
+    \item \textbf{Loss Function}: Categorical Crossentropy
+    \item \textbf{Batch Size}: 32
+    \item \textbf{Epochs}: 10
+\end{itemize}
+
+\section{Mathematical Formulation}
+
+\subsection{Softmax Activation}
+The output layer uses softmax activation to produce probability distribution:
+\[
+\sigma(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{4} e^{z_j}}
+\]
+where $z_i$ represents the logits for class $i$.
+
+\subsection{Loss Function}
+Categorical crossentropy loss:
+\[
+L = -\sum_{i=1}^{4} y_i \log(\hat{y}_i)
+\]
+where $y_i$ is the true label and $\hat{y}_i$ is the predicted probability.
+
+\subsection{Accuracy Metric}
+\[
+\text{Accuracy} = \frac{\text{Correct Predictions}}{\text{Total Predictions}} \times 100\%
+\]
+
+\section{Implementation}
+
+\subsection{Training Pipeline}
+The training process involves:
+\begin{enumerate}
+    \item Loading and preprocessing dataset
+    \item Configuring data generators for training and validation
+    \item Building the model architecture
+    \item Compiling with appropriate loss function and optimizer
+    \item Training for specified epochs
+    \item Saving the trained model
+\end{enumerate}
+
+\subsection{Prediction Pipeline}
+For inference, the system:
+\begin{enumerate}
+    \item Loads the trained model
+    \item Preprocesses input image (resize, normalize, reshape)
+    \item Performs prediction
+    \item Returns class label and confidence score
+\end{enumerate}
+
+\begin{lstlisting}[caption=Prediction Function]
+def predict_disease(image):
+    img = cv2.resize(image, (224, 224))
+    img = img / 255.0
+    img = np.reshape(img, (1, 224, 224, 3))
+    
+    prediction = model.predict(img)
+    predicted_class = class_names[np.argmax(prediction)]
+    confidence = np.max(prediction) * 100
+    
+    return predicted_class, confidence
+\end{lstlisting}
+
+\section{User Interfaces}
+
+\subsection{Web Interface (Streamlit)}
+The web application provides:
+\begin{itemize}
+    \item Image upload functionality
+    \item Real-time prediction
+    \item Display of results with confidence scores
+    \item Responsive design for various devices
+\end{itemize}
+
+\subsection{Desktop Interface (Tkinter)}
+The desktop application features:
+\begin{itemize}
+    \item Native file dialog for image selection
+    \item Image preview functionality
+    \item Predict button for classification
+    \item Result display with disease name and confidence
+\end{itemize}
+
+\section{Results and Evaluation}
+
+\subsection{Performance Metrics}
+The model achieves high accuracy in disease classification:
+\begin{itemize}
+    \item \textbf{Training Accuracy}: Demonstrates effective learning
+    \item \textbf{Validation Accuracy}: Indicates good generalization
+    \item \textbf{Inference Time}: Real-time prediction capability
+\end{itemize}
+
+\subsection{Confidence Scores}
+The system provides confidence percentages for each prediction, helping users assess the reliability of results.
+
+\section{System Requirements}
+
+\subsection{Hardware Requirements}
+\begin{itemize}
+    \item CPU: Modern processor with 4+ cores recommended
+    \item RAM: Minimum 8GB, 16GB recommended
+    \item Storage: 2GB for model and dependencies
+\end{itemize}
+
+\subsection{Software Requirements}
+\begin{itemize}
+    \item Python 3.7+
+    \item TensorFlow 2.x
+    \item OpenCV
+    \item Streamlit (for web interface)
+    \item Tkinter (for desktop interface)
+    \item PIL/Pillow
+    \item NumPy
+\end{itemize}
+
+\section{Future Enhancements}
+
+\subsection{Potential Improvements}
+\begin{itemize}
+    \item \textbf{Expanded Dataset}: Include more disease categories and samples
+    \item \textbf{Model Optimization}: Implement quantization for mobile deployment
+    \item \textbf{Real-time Detection**: Video stream processing capability
+    \item \textbf{Mobile Application**: Native mobile app development
+    \item \textbf{Integration**: API integration with agricultural management systems
+\end{itemize}
+
+\subsection{Advanced Features}
+\begin{itemize}
+    \item Disease severity assessment
+    \item Treatment recommendations
+    \item Geographic disease mapping
+    \item Historical disease tracking
+\end{itemize}
+
+\section{Conclusion}
+
+This project successfully demonstrates the application of deep learning for agricultural disease detection. The system provides accurate classification of apple leaf diseases with user-friendly interfaces, making it accessible for practical use in agricultural settings. The transfer learning approach with MobileNetV2 proves effective for this classification task while maintaining computational efficiency.
+
+The project showcases the potential of AI in agriculture and provides a foundation for further development in plant disease detection and crop management systems.
+
+\begin{thebibliography}{9}
+\bibitem{mobilenet} Howard, A.G., et al. (2017). MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications.
+\bibitem{transfer} Tan, C., et al. (2018). A Survey on Deep Transfer Learning.
+\bibitem{plant} Mohanty, S.P., et al. (2016). Using Deep Learning for Image-Based Plant Disease Detection.
+\end{thebibliography}
+
+\end{document}

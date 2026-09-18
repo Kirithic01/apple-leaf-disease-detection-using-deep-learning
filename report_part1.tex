@@ -1,0 +1,444 @@
+% ============================================================
+% PART 1 - Preamble through Chapter 2
+% ============================================================
+\documentclass[12pt]{report}
+
+% Required Packages
+\usepackage[left=1in, right=0.5in, top=1in, bottom=1in]{geometry}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{tocloft}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathptmx}        % Times New Roman font
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{float}
+
+% Line spacing 1.5
+\onehalfspacing
+
+% Page numbering at bottom center
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% Chapter title formatting
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}{12pt}{\Large\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+% Section formatting
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% TOC formatting
+\renewcommand{\cftchapfont}{\normalfont\bfseries}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont\bfseries}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforechapskip}{6pt}
+
+\begin{document}
+
+% ============================================================
+% COVER PAGE
+% ============================================================
+\begin{titlepage}
+\begin{center}
+
+\vspace*{0.5cm}
+
+\textbf{\large SRM INSTITUTE OF SCIENCE AND TECHNOLOGY}\\
+(Under Section 3 of UGC Act, 1956)\\[0.3cm]
+SRM Nagar, Kattankulathur -- 603203, Kancheepuram District, Tamil Nadu\\[1cm]
+
+\textbf{\large SCHOOL OF COMPUTING}\\
+\textbf{DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}\\[1.5cm]
+
+\textbf{\Large MINOR PROJECT REPORT}\\[0.5cm]
+\textbf{(2024--2025)}\\[1.5cm]
+
+\textbf{\LARGE APPLE LEAF DISEASE DETECTION USING\\MACHINE LEARNING AND DEEP LEARNING MODELS}\\[2cm]
+
+\begin{tabular}{ll}
+\textbf{Submitted by:} & \\
+& Student Name (RA2211003XXXXX) \\[0.5cm]
+\textbf{Under the Guidance of:} & \\
+& Dr.\ Guide Name \\
+& Assistant Professor \\
+& Department of CSE \\
+\end{tabular}
+
+\vfill
+
+\textbf{SRM INSTITUTE OF SCIENCE AND TECHNOLOGY}\\
+\textbf{KATTANKULATHUR -- 603203}\\[0.3cm]
+\textbf{APRIL 2025}
+
+\end{center}
+\end{titlepage}
+
+% ============================================================
+% DECLARATION PAGE
+% ============================================================
+\newpage
+\thispagestyle{fancy}
+\begin{center}
+\textbf{\large DECLARATION}
+\end{center}
+\vspace{1cm}
+
+I hereby declare that the Minor Project Report entitled \textbf{``Apple Leaf Disease Detection Using Machine Learning and Deep Learning Models''} submitted to the Department of Computer Science and Engineering, School of Computing, SRM Institute of Science and Technology, Kattankulathur, in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology in Computer Science and Engineering}, is a bonafide record of work carried out by me under the guidance of \textbf{Dr.\ Guide Name}, Assistant Professor, Department of Computer Science and Engineering.
+
+\vspace{0.5cm}
+
+I further declare that this project work has not been submitted elsewhere for the award of any other degree or diploma.
+
+\vspace{2cm}
+
+\begin{flushleft}
+\textbf{Place:} Kattankulathur\\
+\textbf{Date:} \today
+\end{flushleft}
+
+\vspace{1.5cm}
+
+\begin{flushright}
+\textbf{Student Name}\\
+RA2211003XXXXX
+\end{flushright}
+
+% ============================================================
+% BONAFIDE CERTIFICATE
+% ============================================================
+\newpage
+\thispagestyle{fancy}
+\begin{center}
+\textbf{\large SRM INSTITUTE OF SCIENCE AND TECHNOLOGY}\\
+(Under Section 3 of UGC Act, 1956)\\[0.2cm]
+SRM Nagar, Kattankulathur -- 603203\\[0.5cm]
+
+\textbf{\large BONAFIDE CERTIFICATE}
+\end{center}
+\vspace{1cm}
+
+This is to certify that the Minor Project Report entitled \textbf{``Apple Leaf Disease Detection Using Machine Learning and Deep Learning Models''} submitted by \textbf{Student Name (RA2211003XXXXX)} in partial fulfillment of the requirements for the award of the degree of \textbf{Bachelor of Technology in Computer Science and Engineering} is a bonafide record of work carried out under my supervision during the academic year 2024--2025.
+
+\vspace{2cm}
+
+\noindent
+\begin{tabular}{p{7cm}p{7cm}}
+\textbf{Dr.\ Guide Name} & \textbf{Dr.\ HOD Name} \\
+Assistant Professor & Head of the Department \\
+Department of CSE & Department of CSE \\
+SRM IST, Kattankulathur & SRM IST, Kattankulathur \\
+\end{tabular}
+
+\vspace{2cm}
+
+\noindent
+\textbf{Internal Examiner} \hfill \textbf{External Examiner}\\[1cm]
+\noindent
+Date: \today
+
+% ============================================================
+% ACKNOWLEDGEMENT
+% ============================================================
+\newpage
+\thispagestyle{fancy}
+\begin{center}
+\textbf{\large ACKNOWLEDGEMENT}
+\end{center}
+\vspace{1cm}
+
+I would like to express my sincere gratitude to my project guide \textbf{Dr.\ Guide Name}, Assistant Professor, Department of Computer Science and Engineering, SRM Institute of Science and Technology, for the continuous support, guidance, and encouragement throughout the course of this project. The invaluable suggestions and constructive criticism provided during every phase of this work have been instrumental in shaping this project to its present form.
+
+I extend my heartfelt thanks to \textbf{Dr.\ HOD Name}, Head of the Department of Computer Science and Engineering, for providing the necessary infrastructure and facilities to carry out this project work successfully.
+
+I am profoundly grateful to \textbf{Dr.\ Vice Chancellor Name}, Vice Chancellor, SRM Institute of Science and Technology, for providing a conducive academic environment and state-of-the-art computational resources that enabled the successful execution of deep learning experiments in this project.
+
+I am also thankful to all the faculty members of the Department of Computer Science and Engineering for their valuable suggestions and guidance during the project review presentations.
+
+I would like to acknowledge the contributions of the open-source community, particularly the developers of TensorFlow, Keras, Scikit-learn, and Streamlit, whose frameworks and libraries have been foundational to this work.
+
+Finally, I express my deep gratitude to my parents and friends for their constant moral support and encouragement throughout this academic endeavor.
+
+\vfill
+\begin{flushright}
+\textbf{Student Name}
+\end{flushright}
+
+% ============================================================
+% ABSTRACT
+% ============================================================
+\newpage
+\thispagestyle{fancy}
+\begin{center}
+\textbf{\large ABSTRACT}
+\end{center}
+\vspace{1cm}
+
+Apple diseases pose a significant threat to global agricultural productivity, causing substantial economic losses to farmers and impacting food security worldwide. Traditional disease identification methods rely heavily on manual visual inspection by trained pathologists, which is inherently time-consuming, labor-intensive, subjective, and impractical for large-scale orchard monitoring. This project presents a comprehensive and automated apple leaf disease detection system that leverages both Machine Learning (ML) and Deep Learning (DL) techniques for accurate classification and severity estimation.
+
+The proposed system classifies apple leaf images into four distinct categories: Apple Scab, Black Rot, Cedar Apple Rust, and Healthy. A multi-stage image preprocessing pipeline is developed, incorporating background removal using GrabCut algorithm with HSV-based fallback, disease region detection through HSV color-space thresholding, and disease highlighting for enhanced model input. The preprocessing pipeline segments the leaf from the background, identifies disease-affected regions based on color analysis in the HSV color space, and generates highlighted images that emphasize disease symptoms while preserving leaf structure.
+
+Three traditional machine learning models --- Support Vector Machine (SVM), Random Forest, and K-Nearest Neighbors (KNN) --- are trained on features extracted using MobileNetV2 as a feature extractor. Four deep learning models --- MobileNetV2, ResNet50, DenseNet121, and EfficientNetB0 --- are trained using transfer learning with pre-trained ImageNet weights. An adaptive weighted voting ensemble mechanism is implemented to combine predictions from all models, assigning weights based on individual model accuracy, prediction confidence, and model type.
+
+Experimental results demonstrate that MobileNetV2 and DenseNet121 achieve the highest individual accuracies of 98.06\% and 96.08\% respectively, while the ensemble system provides robust and reliable predictions by leveraging the collective intelligence of all models. The system also incorporates a disease severity estimation module that quantifies the percentage of infected leaf area and classifies severity into four levels: Mild, Moderate, Severe, and Critical. The complete system is deployed as an interactive web application using Streamlit, providing a user-friendly interface for real-time disease detection and analysis.
+
+\textbf{Keywords:} Apple leaf disease detection, Machine Learning, Deep Learning, MobileNetV2, Transfer Learning, Ensemble Learning, Image Preprocessing, HSV Segmentation, Disease Severity Estimation, Streamlit
+
+% ============================================================
+% TABLE OF CONTENTS, LIST OF FIGURES, LIST OF TABLES
+% ============================================================
+\newpage
+\tableofcontents
+
+\newpage
+\listoffigures
+
+\newpage
+\listoftables
+
+% ============================================================
+% ABBREVIATIONS
+% ============================================================
+\newpage
+\thispagestyle{fancy}
+\begin{center}
+\textbf{\large LIST OF ABBREVIATIONS}
+\end{center}
+\vspace{1cm}
+
+\begin{longtable}{p{4cm} p{10cm}}
+\textbf{Abbreviation} & \textbf{Full Form} \\
+\hline
+AI & Artificial Intelligence \\
+ANN & Artificial Neural Network \\
+CNN & Convolutional Neural Network \\
+DL & Deep Learning \\
+DenseNet & Densely Connected Convolutional Network \\
+F1 & F1-Score (Harmonic Mean of Precision and Recall) \\
+F2 & F-beta Score with beta=2 \\
+FN & False Negative \\
+FP & False Positive \\
+GrabCut & Graph Cut based Segmentation Algorithm \\
+GUI & Graphical User Interface \\
+HSV & Hue, Saturation, Value (Color Space) \\
+KNN & K-Nearest Neighbors \\
+ML & Machine Learning \\
+MVC & Model-View-Controller \\
+OpenCV & Open Source Computer Vision Library \\
+ReLU & Rectified Linear Unit \\
+ResNet & Residual Network \\
+RF & Random Forest \\
+RGB & Red, Green, Blue (Color Space) \\
+SRM & SRM Institute of Science and Technology \\
+SVM & Support Vector Machine \\
+TN & True Negative \\
+TP & True Positive \\
+\end{longtable}
+
+% ============================================================
+% CHAPTER 1: INTRODUCTION
+% ============================================================
+\chapter{Introduction}
+\thispagestyle{fancy}
+
+\section{Overview}
+
+Agriculture is the backbone of the global economy, providing sustenance and livelihood to billions of people worldwide. Among the myriad crops cultivated globally, apple cultivation holds significant economic importance, with the global apple market valued at approximately \$83 billion as of 2023. India ranks among the top five apple-producing nations, with states like Jammu \& Kashmir, Himachal Pradesh, and Uttarakhand contributing significantly to the national output. However, apple orchards are perpetually threatened by a range of diseases that can devastate yields and cause severe financial losses to farmers.
+
+Apple leaf diseases, including Apple Scab caused by \textit{Venturia inaequalis}, Black Rot caused by \textit{Botryosphaeria obtusa}, and Cedar Apple Rust caused by \textit{Gymnosporangium juniperi-virginianae}, are among the most prevalent and destructive pathogens affecting apple cultivation. These diseases manifest as visible symptoms on leaf surfaces, including discoloration, spots, lesions, and necrotic patches. If left undetected and untreated, these diseases can lead to yield losses exceeding 70\%, significantly impacting the economic viability of apple farming operations.
+
+The traditional approach to disease detection involves manual visual inspection by trained plant pathologists or agricultural experts who physically examine leaves for symptoms. While this method has been the standard practice for decades, it suffers from several critical limitations. Manual inspection is inherently time-consuming and labor-intensive, making it impractical for monitoring large orchards with thousands of trees. The accuracy of manual diagnosis depends heavily on the expertise and experience of the inspector, introducing subjectivity and inconsistency in assessments. Furthermore, the decreasing availability of trained agricultural specialists in rural areas exacerbates the challenge of timely disease identification.
+
+The advent of computer vision and machine learning technologies has opened transformative possibilities for automated plant disease detection. By leveraging the ability of algorithms to analyze visual patterns in leaf images, automated systems can provide rapid, consistent, and scalable disease identification. Recent advances in deep learning, particularly Convolutional Neural Networks (CNNs), have demonstrated remarkable capabilities in image classification tasks, achieving human-level or even superhuman performance on various visual recognition benchmarks.
+
+\section{Problem Statement}
+
+The manual inspection process for apple leaf disease detection presents several significant challenges that hinder effective crop management:
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Subjectivity and Inconsistency:} Different experts may interpret disease symptoms differently, leading to inconsistent diagnoses. The same leaf sample may receive varying assessments depending on the inspector's experience, fatigue level, and environmental conditions during inspection.
+
+\item \textbf{Scalability Limitations:} Manual inspection cannot scale to meet the demands of modern large-scale apple orchards. A single orchard may contain thousands of trees with millions of leaves, making comprehensive manual screening practically impossible within reasonable timeframes.
+
+\item \textbf{Timeliness Constraints:} Disease identification through manual methods often occurs after significant symptom development, by which time the pathogen may have already spread to neighboring plants. Early detection is crucial for effective disease management and minimizing crop losses.
+
+\item \textbf{Expertise Shortage:} The number of trained plant pathologists and agricultural specialists is declining, particularly in rural areas where they are most needed. This shortage creates a bottleneck in disease management capabilities.
+
+\item \textbf{Cost Implications:} Hiring expert pathologists for regular orchard inspections incurs significant costs that may not be economically viable for small-scale farmers, who constitute the majority of apple growers in developing nations.
+\end{enumerate}
+
+These challenges necessitate the development of an automated, accurate, scalable, and cost-effective disease detection system that can operate in real-time field conditions and be accessible to farmers regardless of their technical expertise.
+
+\section{Objectives}
+
+The primary objectives of this minor project are as follows:
+
+\begin{enumerate}[leftmargin=*]
+\item To develop a comprehensive image preprocessing pipeline for apple leaf disease detection, incorporating background removal, leaf segmentation, disease region detection using HSV color-space analysis, and disease highlighting for enhanced model input.
+
+\item To implement and train multiple machine learning models --- Support Vector Machine (SVM), Random Forest, and K-Nearest Neighbors (KNN) --- for apple leaf disease classification using features extracted through transfer learning.
+
+\item To implement and train multiple deep learning models --- MobileNetV2, ResNet50, DenseNet121, and EfficientNetB0 --- using transfer learning with pre-trained ImageNet weights for apple leaf disease classification.
+
+\item To design and implement an adaptive weighted voting ensemble system that combines predictions from all trained models to achieve robust and reliable disease classification.
+
+\item To develop a disease severity estimation module that quantifies the percentage of infected leaf area and classifies severity into distinct levels (Mild, Moderate, Severe, Critical).
+
+\item To deploy the complete system as an interactive web application using Streamlit, providing a user-friendly interface for real-time disease detection, model comparison, and severity analysis.
+\end{enumerate}
+
+\section{Scope of the Project}
+
+This project encompasses the following scope:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Disease Categories:} The system classifies apple leaf images into four categories --- Apple Scab, Black Rot, Cedar Apple Rust, and Healthy. The architecture is designed for extensibility to additional disease categories and crop types.
+
+\item \textbf{Model Coverage:} The project implements eight distinct models spanning both traditional ML and modern DL paradigms, providing a comprehensive comparative analysis of different approaches.
+
+\item \textbf{Preprocessing Pipeline:} A multi-stage preprocessing pipeline incorporating background removal (GrabCut with HSV fallback), disease detection (HSV thresholding), and disease highlighting is developed to enhance model input quality.
+
+\item \textbf{Deployment:} The system is deployed as a Streamlit web application, enabling browser-based access for real-time disease detection and analysis.
+\end{itemize}
+
+\section{Organization of the Report}
+
+The remainder of this report is organized as follows:
+
+\textbf{Chapter 2: Literature Survey} provides a comprehensive review of existing research in plant disease detection using machine learning and deep learning, covering traditional approaches, CNN architectures, transfer learning, and ensemble methods.
+
+\textbf{Chapter 3: Sprint Planning and Execution Methodology} details the agile development methodology adopted for this project, describing the objectives, design, implementation, and results of each sprint.
+
+\textbf{Chapter 4: Results and Discussion} presents the experimental results, including model accuracy comparisons, performance metrics, preprocessing pipeline outputs, ensemble system analysis, and severity estimation results.
+
+\textbf{Chapter 5: Conclusion and Future Work} summarizes the key findings and contributions of this project and outlines potential directions for future research and development.
+
+% ============================================================
+% CHAPTER 2: LITERATURE SURVEY
+% ============================================================
+\chapter{Literature Survey}
+\thispagestyle{fancy}
+
+\section{Introduction}
+
+Plant disease detection has been an active area of research for several decades, evolving from manual inspection methods to sophisticated automated systems powered by artificial intelligence. This chapter presents a comprehensive review of existing literature, covering traditional machine learning approaches, deep learning architectures, transfer learning strategies, ensemble methods, and image preprocessing techniques relevant to apple leaf disease detection. The review establishes the research context and identifies the gaps that this project aims to address.
+
+\section{Traditional Machine Learning Approaches}
+
+Early attempts at automated plant disease detection utilized classical machine learning algorithms applied to handcrafted features extracted from leaf images. These methods required domain expertise for feature engineering and typically involved a two-stage process: feature extraction followed by classification.
+
+\subsection{Feature Extraction Techniques}
+
+Traditional approaches relied on manually engineered features to represent leaf images numerically. The most commonly used feature categories include:
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Color Features:} HSV histograms, color moments (mean, standard deviation, skewness), and vegetation indices have been widely used to characterize the color distribution in leaf images. Diseased regions typically exhibit distinct color patterns compared to healthy tissue, making color features effective discriminators [1].
+
+\item \textbf{Texture Features:} Gray-Level Co-occurrence Matrix (GLCM), Local Binary Patterns (LBP), and Gabor filters capture the textural properties of leaf surfaces. Disease-affected areas often display altered textures due to lesions, spots, and necrotic patches [2].
+
+\item \textbf{Shape Features:} Leaf contour analysis, vein pattern extraction, and morphological descriptors characterize the geometric properties of disease symptoms, including the shape, size, and distribution of lesions [3].
+
+\item \textbf{Statistical Features:} Mean, variance, skewness, and kurtosis of pixel intensities provide aggregate statistical descriptions of image regions, useful for distinguishing between healthy and diseased tissues [4].
+\end{itemize}
+
+\subsection{Classification Algorithms}
+
+Several classical ML algorithms have been applied to plant disease classification:
+
+\textbf{Support Vector Machines (SVM):} SVMs have been extensively used due to their effectiveness in high-dimensional feature spaces and their ability to find optimal separating hyperplanes between classes. Rumpf et al.\ [5] demonstrated that SVMs could achieve classification accuracies exceeding 85\% for sugar beet leaf diseases using spectral vegetation indices.
+
+\textbf{Random Forest:} Random Forest classifiers, which construct multiple decision trees and aggregate their predictions through voting, have shown robust performance in plant disease classification. The ensemble nature of Random Forest provides inherent resistance to overfitting and can handle noisy features effectively [6].
+
+\textbf{K-Nearest Neighbors (KNN):} KNN classifiers, which assign labels based on the majority vote of the K nearest training samples, offer simplicity and interpretability. However, their performance degrades with high-dimensional feature spaces and large datasets due to computational complexity [7].
+
+While these traditional approaches achieved moderate accuracy, they suffered from limitations inherent to handcrafted features --- namely, the inability to capture complex hierarchical visual patterns and the requirement for extensive domain expertise in feature design.
+
+\section{Deep Learning in Plant Disease Detection}
+
+The breakthrough of deep learning, particularly Convolutional Neural Networks (CNNs), has revolutionized plant disease detection by enabling automatic feature learning from raw pixel data, eliminating the need for manual feature engineering.
+
+\subsection{Convolutional Neural Network Architectures}
+
+\textbf{VGG Networks:} Simonyan and Zisserman [8] introduced VGGNet with its uniform architecture of $3 \times 3$ convolution filters, demonstrating that network depth is critical for performance. However, VGG models are computationally expensive with hundreds of millions of parameters, making them impractical for resource-constrained deployments.
+
+\textbf{ResNet (Residual Networks):} He et al.\ [9] introduced skip connections that enable training of very deep networks (up to 152 layers) by addressing the vanishing gradient problem. ResNet50, with approximately 25 million parameters, has been widely adopted for plant disease classification, achieving accuracies above 95\% on standard benchmarks.
+
+\textbf{DenseNet (Densely Connected Networks):} Huang et al.\ [10] proposed dense connectivity patterns where each layer receives input from all preceding layers, promoting feature reuse and gradient flow. DenseNet121 achieves competitive accuracy with significantly fewer parameters than equivalent ResNet models, making it an attractive choice for plant disease applications.
+
+\textbf{EfficientNet:} Tan and Le [11] introduced a compound scaling method that uniformly scales network width, depth, and resolution, achieving state-of-the-art accuracy with significantly fewer parameters and FLOPs. EfficientNetB0 provides an excellent accuracy-efficiency trade-off for plant disease detection.
+
+\textbf{MobileNetV2:} Sandler et al.\ [12] introduced MobileNetV2 with inverted residuals and linear bottlenecks, employing depthwise separable convolutions to achieve competitive accuracy with dramatically reduced computational cost. With a model size of approximately 11 MB, MobileNetV2 is ideally suited for mobile and edge deployment scenarios in agricultural settings.
+
+\subsection{Seminal Works in Plant Disease Detection}
+
+Mohanty et al.\ [13] demonstrated the effectiveness of deep CNNs for plant disease detection using the PlantVillage dataset, achieving 99.35\% accuracy with GoogLeNet across 38 disease classes. However, the study focused primarily on laboratory-condition images and did not address field deployment challenges.
+
+Ferentinos [14] conducted a comprehensive evaluation of CNN architectures for plant disease identification, testing VGG, ResNet, Inception, and custom architectures across 58 distinct plant-disease combinations. The study reported that VGG achieved the highest accuracy of 99.53\% but acknowledged the computational overhead associated with deep architectures.
+
+\section{Transfer Learning in Agricultural Applications}
+
+Transfer learning has emerged as a powerful paradigm for agricultural applications where labeled datasets are limited. By leveraging features learned from large-scale datasets such as ImageNet, transfer learning enables effective model adaptation with minimal training data and computational resources.
+
+Howard et al.\ [15] demonstrated that fine-tuning pre-trained MobileNet models could achieve competitive accuracy on specialized datasets with as few as 1,000 training images per class. This finding has significant implications for agricultural applications where curating large labeled datasets is challenging and expensive.
+
+Several transfer learning strategies have been investigated in the literature. Feature extraction involves using pre-trained models as fixed feature extractors, passing the extracted features to traditional classifiers such as SVM or Random Forest. Fine-tuning involves updating some or all layers of the pre-trained model on the target dataset. Progressive fine-tuning gradually unfreezes layers during training, starting from the classification head and progressively including deeper feature extraction layers.
+
+\section{Ensemble Methods}
+
+Ensemble learning combines predictions from multiple models to achieve better generalization performance than any individual model. In the context of plant disease detection, ensemble methods have shown particular promise due to their ability to leverage the complementary strengths of diverse models.
+
+Weighted voting ensembles assign different weights to individual model predictions based on their accuracy, confidence, or other performance metrics. This approach has been shown to improve classification robustness, particularly when combining models with different architectural biases and failure modes [16].
+
+\section{Image Preprocessing for Disease Detection}
+
+Effective image preprocessing is critical for accurate disease detection. Key preprocessing techniques include background removal through segmentation algorithms such as GrabCut, leaf segmentation using HSV color-space analysis, and disease region highlighting through color-based thresholding. These preprocessing steps reduce noise, eliminate irrelevant background information, and emphasize disease-relevant features in the input images [17].
+
+\section{Research Gaps Identified}
+
+Based on the literature review, the following research gaps have been identified:
+
+\begin{enumerate}[leftmargin=*]
+\item Most existing studies focus on either ML or DL approaches independently, without providing a comprehensive comparative analysis within a unified framework.
+\item Limited research exists on adaptive ensemble systems that dynamically weight model contributions based on accuracy and confidence.
+\item Few studies integrate multi-stage preprocessing pipelines with disease severity estimation in a single deployable system.
+\item The gap between research prototypes and deployable applications remains significant, with limited attention to user-friendly deployment.
+\end{enumerate}
+
+This project addresses these gaps by implementing a comprehensive system that integrates ML and DL models with an adaptive ensemble, a multi-stage preprocessing pipeline, severity estimation, and a user-friendly web deployment.
+
+\begin{table}[H]
+\centering
+\caption{Summary of Literature Review}
+\label{tab:lit_summary}
+\begin{tabular}{|p{2.5cm}|p{3cm}|p{2.5cm}|p{2cm}|p{3cm}|}
+\hline
+\textbf{Author(s)} & \textbf{Method} & \textbf{Dataset} & \textbf{Accuracy} & \textbf{Limitation} \\
+\hline
+Mohanty et al.\ (2016) & GoogLeNet, AlexNet & PlantVillage & 99.35\% & Lab conditions only \\
+\hline
+Ferentinos (2018) & VGG, ResNet & PlantVillage & 99.53\% & High computational cost \\
+\hline
+Liu et al.\ (2021) & ResNet50 & Custom & 96.2\% & No ensemble \\
+\hline
+Singh et al.\ (2020) & SVM, ANN & Custom & 93.8\% & Manual features \\
+\hline
+Rangarajan et al.\ (2018) & AlexNet, VGG16 & PlantVillage & 97.49\% & No severity analysis \\
+\hline
+\textbf{Proposed} & \textbf{ML + DL Ensemble} & \textbf{Apple subset} & \textbf{98.06\%} & \textbf{---} \\
+\hline
+\end{tabular}
+\end{table}
